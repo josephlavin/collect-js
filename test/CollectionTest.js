@@ -55,3 +55,14 @@ test('.sum() it can sum using a callback', t => {
 
     t.is(6, sum);
 });
+
+test('.toArray() it converts an object to an array', t => {
+    let collection = Collection.make({'foo': 1, 'bar': 2});
+
+    t.deepEqual([1, 2], collection.toArray());
+});
+
+test('.toArray() matches original array', t => {
+    let collection = Collection.make([1, 2, 3]);
+    t.deepEqual([1, 2, 3], collection.toArray());
+});

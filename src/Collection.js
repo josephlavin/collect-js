@@ -22,7 +22,6 @@ class Collection {
         return this.items;
     }
 
-
     /**
      * @param callback
      * @returns {number}
@@ -61,6 +60,13 @@ class Collection {
                 return carry + Number(callback(item));
             }, 0);
         }
+    }
+
+    /**
+     * @returns []
+     */
+    toArray() {
+        return Object.values(this.items);
     }
 
     /**
