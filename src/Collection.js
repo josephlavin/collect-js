@@ -50,15 +50,11 @@ class Collection {
         }
 
         if (typeof callback === 'string') {
-            return Object.values(this.items).reduce((carry, item) => {
-                return carry + Number(item[callback]);
-            }, 0);
+            return Object.values(this.items).reduce((carry, item) => carry + Number(item[callback]), 0);
         }
 
         if (typeof callback === 'function') {
-            return Object.values(this.items).reduce((carry, item) => {
-                return carry + Number(callback(item));
-            }, 0);
+            return Object.values(this.items).reduce((carry, item) => carry + Number(callback(item)), 0);
         }
     }
 
