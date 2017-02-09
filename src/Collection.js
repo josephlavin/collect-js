@@ -41,6 +41,23 @@ class Collection {
     }
 
     /**
+     * @param callback
+     * @returns {Collection}
+     */
+    map(callback) {
+        let keys = Object.keys(this.items);
+
+        let values = Object.entries(this.items).map((value) => callback(value[1], value[0]));
+
+        let items = {};
+        for (let i = 0, len = keys.length; i < len; i++) {
+            items[keys[i]] = values[i];
+        }
+
+        return new Collection(items);
+    }
+
+    /**
      *
      * @param callback|string|null
      */
