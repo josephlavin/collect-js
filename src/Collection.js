@@ -41,6 +41,23 @@ class Collection {
     }
 
     /**
+     * @param callable
+     * @returns {Collection}
+     */
+    each(callable) {
+        let keys = Object.keys(this.items);
+
+        for (let i = 0, len = keys.length; i < len; i++) {
+            if (callable(this.items[keys[i]], keys[i]) === false) {
+                break;
+            }
+        }
+
+        return this;
+    }
+
+
+    /**
      * @param callback
      * @returns {Collection}
      */

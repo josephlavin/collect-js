@@ -30,6 +30,63 @@ test('.count() it can get the count of all items', t => {
     t.is(2, Collection.make({'foo': 'bar', 'biz': 'baz'}).count());
 });
 
+test('.each() it executes callback for each item from array', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let numExecuted = 0;
+    let itemSum = 0;
+    let keySum = 0;
+
+    collection.each((item, key) => {
+        itemSum += item;
+        keySum += parseInt(key);
+        numExecuted++;
+    });
+
+    t.is(numExecuted, 5);
+    t.is(itemSum, 15);
+    t.is(keySum, 10);
+});
+
+test('.each() it executes callback for each item from object', t => {
+    let collection = Collection.make({'foo': 1, 'bar': 2, 'biz': 3, 'baz': 4});
+
+    let numExecuted = 0;
+    let itemSum = 0;
+
+    collection.each((item) => {
+        itemSum += item;
+        numExecuted++;
+    });
+
+    t.is(numExecuted, 4);
+    t.is(itemSum, 10);
+});
+
+test('.each() it returns the same instance of collection', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let returned = collection.each(() => true);
+
+    t.true(returned instanceof Collection);
+    t.true(returned === collection);
+});
+
+test('.each() it stops executing ', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let numExecuted = 0;
+
+    collection.each((item, key) => {
+        numExecuted++;
+        if (item == 3) {
+            return false;
+        }
+    });
+
+    t.is(numExecuted, 3);
+});
+
 test('.map() maps a function', t => {
     let collect = Collection.make([1, 2, 3, 4, 5]);
 

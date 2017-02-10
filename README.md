@@ -14,7 +14,7 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 - :white_check_mark: count
 - diff
 - diffKeys
-- each
+- :white_check_mark: each
 - every
 - except
 - filter
