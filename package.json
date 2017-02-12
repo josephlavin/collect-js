@@ -1,5 +1,5 @@
 {
-  "name": "collect-js",
+  "name": "support-collection",
   "version": "0.1.0-dev",
   "description": "A port of Laravel's Collection Class.",
   "main": "src/collect.js",
