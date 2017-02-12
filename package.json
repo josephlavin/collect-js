@@ -1,6 +1,6 @@
 {
-  "name": "collect",
-  "version": "0.1.0",
+  "name": "collect-js",
+  "version": "0.1.0-dev",
   "description": "A port of Laravel's Collection Class.",
   "main": "src/collect.js",
   "keywords": [
