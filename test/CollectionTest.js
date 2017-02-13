@@ -87,6 +87,58 @@ test('.each() it stops executing ', t => {
     t.is(numExecuted, 3);
 });
 
+test('.first() gives the first item', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    t.is(collection.first(), 1);
+});
+
+test('.first() gives the first match given a callback', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let found = collection.first((item, key) => item > 2);
+
+    t.is(found, 3);
+});
+
+test('.first() gives the default value if no match', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let found = collection.first((item, key) => item > 6, 'default');
+
+    t.is(found, 'default');
+});
+
+test('.first() the default value can be a callback to be executed', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let found = collection.first((item, key) => item > 6, () => 10 + 10);
+
+    t.is(found, 20);
+});
+
+test('.isEmpty() knows when the collection is empty', t => {
+    let collection = Collection.make([]);
+    t.true(collection.isEmpty());
+});
+
+test('.isEmpty() knows when the collection is not empty', t => {
+    let collection = Collection.make([1, 2, 3]);
+    t.false(collection.isEmpty());
+});
+
+test('.keys() can give keys for an array', t => {
+    let collection = Collection.make([1, 2, 3]);
+
+    t.deepEqual(["0", "1", "2"], collection.keys());
+});
+
+test('.keys() can give keys for an object', t => {
+    let collection = Collection.make({foo: 'bar', 'biz': 'baz'});
+
+    t.deepEqual(['foo', 'biz'], collection.keys());
+});
+
 test('.map() maps a function', t => {
     let collect = Collection.make([1, 2, 3, 4, 5]);
 

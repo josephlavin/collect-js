@@ -18,7 +18,7 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 - every
 - except
 - filter
-- first
+- :white_check_mark: first
 - flatMap
 - flatten
 - flip
@@ -29,9 +29,9 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 - has
 - implode
 - intersect
-- isEmpty
+- :white_check_mark: isEmpty
 - keyBy
-- keys
+- :white_check_mark: keys
 - last
 - :white_check_mark: map
 - mapWithKeys

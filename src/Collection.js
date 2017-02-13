@@ -56,6 +56,45 @@ class Collection {
         return this;
     }
 
+    /**
+     *
+     * @param callback
+     * @param def
+     */
+    first(callback = null, def = null) {
+        if (callback == null) {
+            if (this.isEmpty()) {
+                return Collection._value(def);
+            }
+
+            return this.items[this.keys()[0]];
+        }
+
+        let keys = this.keys();
+
+        for (let i = 0, len = keys.length; i < len; i++) {
+            if (callback(this.items[keys[i]], keys[i]) === true) {
+                return this.items[keys[i]];
+            }
+        }
+
+        return Collection._value(def);
+    }
+
+    /**
+     * @returns {boolean}
+     */
+    isEmpty() {
+        return this.count() === 0;
+    }
+
+    /**
+     * @returns {Array}
+     */
+    keys() {
+        return Object.keys(this.items);
+    }
+
 
     /**
      * @param callback
@@ -112,6 +151,19 @@ class Collection {
         }
 
         return items;
+    }
+
+    /**
+     * Return the default value of the given value.
+     * @param value
+     * @returns {*}
+     * @private
+     */
+    static _value(value) {
+        if (typeof value === 'function') {
+            return value();
+        }
+        return value;
     }
 }
 
