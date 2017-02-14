@@ -87,6 +87,30 @@ test('.each() it stops executing ', t => {
     t.is(numExecuted, 3);
 });
 
+test('.filter() filters a collection with a callback', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let filtered = collection.filter((item, key) => item > 2);
+
+    t.deepEqual(filtered.toArray(), [3, 4, 5]);
+});
+
+test('.filter() filters a collection with no callback', t => {
+    let collection = Collection.make([1, 2, 3, null, false, '', 0, [], {}]);
+
+    let filtered = collection.filter();
+
+    t.deepEqual(filtered.toArray(), [1, 2, 3, [], {}]);
+});
+
+test('.filter() is immutable', t => {
+    let collection = Collection.make([1, 2, 3, false, null]);
+
+    let filtered = collection.filter();
+
+    t.false(collection === filtered);
+});
+
 test('.first() gives the first item', t => {
     let collection = Collection.make([1, 2, 3, 4, 5]);
 
@@ -165,6 +189,22 @@ test('.map() preserves object keys', t => {
     let pages = collection.map((book) => book.pages);
 
     t.deepEqual(pages.all(), {'book1': 176, 'book2': 1096});
+});
+
+test('.put() puts an item onto a collection', t => {
+    let collection = Collection.make({'foo': 'bar'});
+
+    collection.put('biz', 'baz');
+
+    t.deepEqual(collection.all(), {'foo': 'bar', 'biz': 'baz'});
+});
+
+test('.put() overrides an item by key', t => {
+    let collection = Collection.make({'foo': 'bar'});
+
+    collection.put('foo', 'baz');
+
+    t.deepEqual(collection.all(), {'foo': 'baz'});
 });
 
 test('.sum() it can sum simple array and objects', t => {

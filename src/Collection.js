@@ -57,6 +57,28 @@ class Collection {
     }
 
     /**
+     * @param callback
+     * @returns {Collection}
+     */
+    filter(callback = null) {
+        let keys = this.keys();
+
+        let newCollection = Collection.make();
+
+        if (callback === null) {
+            callback = (item) => !!item;
+        }
+
+        for (let i = 0, len = keys.length; i < len; i++) {
+            if (callback(this.items[keys[i]], keys[i]) == true) {
+                newCollection.put(keys[i], this.items[keys[i]]);
+            }
+        }
+
+        return newCollection;
+    }
+
+    /**
      *
      * @param callback
      * @param def
@@ -95,7 +117,6 @@ class Collection {
         return Object.keys(this.items);
     }
 
-
     /**
      * @param callback
      * @returns {Collection}
@@ -111,6 +132,17 @@ class Collection {
         }
 
         return new Collection(items);
+    }
+
+    /**
+     * @param key
+     * @param value
+     * @returns {Collection}
+     */
+    put(key, value) {
+        this.items[key] = value;
+
+        return this;
     }
 
     /**
