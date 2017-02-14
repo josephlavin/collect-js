@@ -17,7 +17,7 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 - :white_check_mark: each
 - every
 - except
-- filter
+- :white_check_mark: filter
 - :white_check_mark: first
 - flatMap
 - flatten
@@ -47,7 +47,7 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 - prepend
 - pull
 - push
-- put
+- :white_check_mark: put
 - random
 - reduce
 - reject
