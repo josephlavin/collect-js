@@ -119,6 +119,23 @@ class Collection {
 
     /**
      * @param callback
+     * @param initial
+     * @returns {*}
+     */
+    reduce(callback, initial = null) {
+        let keys = this.keys();
+
+        let carry = initial;
+
+        for (let i = 0, len = keys.length; i < len; i++) {
+            carry = callback(carry, this.items[keys[i]], keys[i]);
+        }
+
+        return carry;
+    }
+
+    /**
+     * @param callback
      * @returns {Collection}
      */
     reject(callback = null) {

@@ -163,6 +163,24 @@ test('.keys() can give keys for an object', t => {
     t.deepEqual(['foo', 'biz'], collection.keys());
 });
 
+test('.reduce() executes the given callback ', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let sum = collection.reduce((carry, item, key) => carry + item, 0);
+
+    t.is(sum, 15);
+});
+
+test('.reduce() returns the initial value as default', t => {
+    let collection = Collection.make();
+
+    let executed = false;
+    let value = collection.reduce((carry, item, key) => executed = true, 'default');
+
+    t.false(executed);
+    t.is('default', value);
+});
+
 test('.reject() rejects items with a callback', t => {
     let collection = Collection.make([1, 2, 3, 4, 5]);
 
