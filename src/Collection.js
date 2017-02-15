@@ -95,7 +95,7 @@ class Collection {
         let keys = this.keys();
 
         for (let i = 0, len = keys.length; i < len; i++) {
-            if (callback(this.items[keys[i]], keys[i]) === true) {
+            if (callback(this.items[keys[i]], keys[i])) {
                 return this.items[keys[i]];
             }
         }
@@ -115,6 +115,28 @@ class Collection {
      */
     keys() {
         return Object.keys(this.items);
+    }
+
+    /**
+     * @param callback
+     * @returns {Collection}
+     */
+    reject(callback = null) {
+        let keys = this.keys();
+
+        let newCollection = Collection.make();
+
+        if (callback === null) {
+            callback = (item) => !!item;
+        }
+
+        for (let i = 0, len = keys.length; i < len; i++) {
+            if (!callback(this.items[keys[i]], keys[i])) {
+                newCollection.put(keys[i], this.items[keys[i]]);
+            }
+        }
+
+        return newCollection;
     }
 
     /**

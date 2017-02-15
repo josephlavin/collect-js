@@ -50,7 +50,7 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 - :white_check_mark: put
 - random
 - reduce
-- reject
+- :white_check_mark: reject
 - reverse
 - search
 - shift

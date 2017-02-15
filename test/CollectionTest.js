@@ -163,6 +163,30 @@ test('.keys() can give keys for an object', t => {
     t.deepEqual(['foo', 'biz'], collection.keys());
 });
 
+test('.reject() rejects items with a callback', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5]);
+
+    let filtered = collection.reject((item, key) => item > 2);
+
+    t.deepEqual(filtered.toArray(), [1, 2]);
+});
+
+test('.reject() rejects items  with no callback', t => {
+    let collection = Collection.make([1, 2, 3, null, false, '', 0, [], {}]);
+
+    let filtered = collection.reject();
+
+    t.deepEqual(filtered.toArray(), [null, false, '', 0]);
+});
+
+test('.reject() is immutable', t => {
+    let collection = Collection.make([1, 2, 3, false, null]);
+
+    let filtered = collection.reject();
+
+    t.false(collection === filtered);
+});
+
 test('.map() maps a function', t => {
     let collect = Collection.make([1, 2, 3, 4, 5]);
 
