@@ -71,7 +71,7 @@ class Collection {
 
         for (let i = 0, len = keys.length; i < len; i++) {
             if (callback(this.items[keys[i]], keys[i]) == true) {
-                newCollection.put(keys[i], this.items[keys[i]]);
+                newCollection = newCollection.put(keys[i], this.items[keys[i]]);
             }
         }
 
@@ -149,7 +149,7 @@ class Collection {
 
         for (let i = 0, len = keys.length; i < len; i++) {
             if (!callback(this.items[keys[i]], keys[i])) {
-                newCollection.put(keys[i], this.items[keys[i]]);
+                newCollection = newCollection.put(keys[i], this.items[keys[i]]);
             }
         }
 
@@ -179,9 +179,9 @@ class Collection {
      * @returns {Collection}
      */
     put(key, value) {
-        this.items[key] = value;
-
-        return this;
+        let c = Collection.make(this);
+        c.items[key] = value;
+        return c;
     }
 
     /**

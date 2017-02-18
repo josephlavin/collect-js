@@ -236,7 +236,7 @@ test('.map() preserves object keys', t => {
 test('.put() puts an item onto a collection', t => {
     let collection = Collection.make({'foo': 'bar'});
 
-    collection.put('biz', 'baz');
+    collection = collection.put('biz', 'baz');
 
     t.deepEqual(collection.all(), {'foo': 'bar', 'biz': 'baz'});
 });
@@ -244,9 +244,18 @@ test('.put() puts an item onto a collection', t => {
 test('.put() overrides an item by key', t => {
     let collection = Collection.make({'foo': 'bar'});
 
-    collection.put('foo', 'baz');
+    collection = collection.put('foo', 'baz');
 
     t.deepEqual(collection.all(), {'foo': 'baz'});
+});
+
+test('.put() returns a new instance', t => {
+    let collection = Collection.make({'foo': 'bar'});
+
+    let copy = collection.put('biz', 'baz');
+
+    t.false(collection === copy);
+    t.false(collection.items === copy.items);
 });
 
 test('.sum() it can sum simple array and objects', t => {
