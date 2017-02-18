@@ -19,6 +19,14 @@ test('.all() it converts array to object', t => {
     t.deepEqual({0: 'foo', 1: 'bar'}, collection.all());
 });
 
+test('.all() returns copy of items', t => {
+    let items = {'foo': 'bar'};
+    let collection = Collection.make(items);
+    let all = collection.all();
+
+    t.false(items === all);
+});
+
 test('.avg() it can get the average of all items', t => {
     let collection = Collection.make([1, 2, 3, 4, 5]);
 

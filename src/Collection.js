@@ -19,7 +19,7 @@ class Collection {
      * @returns {Collection}
      */
     all() {
-        return this.items;
+        return Object.assign({}, this.items);
     }
 
     /**
