@@ -46,7 +46,7 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 - pop
 - prepend
 - pull
-- push
+- :white_check_mark: push
 - :white_check_mark: put
 - random
 - :white_check_mark: reduce

@@ -241,6 +241,29 @@ test('.map() preserves object keys', t => {
     t.deepEqual(pages.all(), {'book1': 176, 'book2': 1096});
 });
 
+test('.push() pushes a value to an array collection', t => {
+    let collect = Collection.make([1, 2, 3]);
+
+    collect = collect.push(4);
+
+    t.deepEqual(collect.toArray(), [1, 2, 3, 4]);
+});
+
+test('.push() pushes a value to an object collection', t => {
+    let collect = Collection.make({'foo': 'bar', 'biz': 'baz'});
+
+    collect = collect.push('test');
+
+    t.deepEqual(collect.all(), {'foo': 'bar', 'biz': 'baz', 3: 'test'});
+});
+
+test('.push() returns a new instance', t => {
+    let collect = Collection.make([1, 2, 3]);
+    let after = collect.push(4);
+
+    t.false(collect === after);
+});
+
 test('.put() puts an item onto a collection', t => {
     let collection = Collection.make({'foo': 'bar'});
 

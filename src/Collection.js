@@ -174,6 +174,14 @@ class Collection {
     }
 
     /**
+     * @param value
+     * @returns {Collection}
+     */
+    push(value) {
+        return this.put(this.keys().length + 1, value);
+    }
+
+    /**
      * @param key
      * @param value
      * @returns {Collection}
