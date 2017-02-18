@@ -104,6 +104,27 @@ class Collection {
     }
 
     /**
+     * @param key
+     * @param def
+     * @returns {*}
+     */
+    get(key, def = null) {
+        if (!this.has(key)) {
+            return Collection._value(def);
+        }
+
+        return this.items[key]
+    }
+
+    /**
+     * @param key
+     * @returns {boolean}
+     */
+    has(key) {
+        return this.items.hasOwnProperty(key);
+    }
+
+    /**
      * @returns {boolean}
      */
     isEmpty() {

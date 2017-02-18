@@ -24,9 +24,9 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 - flip
 - forget
 - forPage
-- get
+- :white_check_mark: get
 - groupBy
-- has
+- :white_check_mark: has
 - implode
 - intersect
 - :white_check_mark: isEmpty

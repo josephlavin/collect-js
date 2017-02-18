@@ -149,6 +149,42 @@ test('.first() the default value can be a callback to be executed', t => {
     t.is(found, 20);
 });
 
+test('.get() gets a value by key', t => {
+    let collection = Collection.make({foo: 'bar', biz: 'baz'});
+
+    t.is('bar', collection.get('foo'));
+});
+
+test('.get() returns null if key does not exist', t => {
+    let collection = Collection.make();
+
+    t.is(null, collection.get('foo'));
+});
+
+test('.get() can have custom default value', t => {
+    let collection = Collection.make();
+
+    t.is('default', collection.get('foo', 'default'));
+});
+
+test('.get() can have default value by callback', t => {
+    let collection = Collection.make();
+
+    t.is('default', collection.get('foo', () => 'default'));
+});
+
+test('.has() returns true when key exists', t => {
+    let collection = Collection.make({foo: 'bar', biz: 'baz'});
+
+    t.true(collection.has('foo'));
+});
+
+test('.has() returns false when key does not exists', t => {
+    let collection = Collection.make();
+
+    t.false(collection.has('foo'));
+});
+
 test('.isEmpty() knows when the collection is empty', t => {
     let collection = Collection.make([]);
     t.true(collection.isEmpty());
