@@ -36,6 +36,8 @@ test('.avg() it can get the average of all items', t => {
 test('.count() it can get the count of all items', t => {
     t.is(3, Collection.make([1, 2, 3]).count());
     t.is(2, Collection.make({'foo': 'bar', 'biz': 'baz'}).count());
+    t.is(0, Collection.make([]).count());
+    t.is(0, Collection.make({}).count());
 });
 
 test('.each() it executes callback for each item from array', t => {
