@@ -7,7 +7,7 @@ Javascript Port of [Laravel's Collection Class](https://github.com/laravel/frame
 
 - :white_check_mark: all
 - :white_check_mark: avg
-- chunk
+- :white_check_mark: chunk
 - collapse
 - combine
 - contains

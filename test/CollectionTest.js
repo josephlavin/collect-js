@@ -33,6 +33,36 @@ test('.avg() it can get the average of all items', t => {
     t.is(3, collection.avg());
 });
 
+test('.chunk() gives empty collection when size is 0', t => {
+    let collection = Collection.make([1, 2, 3]);
+    t.is(0, collection.chunk(0).count());
+});
+
+test('.chunk() gives empty collection when size is negative', t => {
+    let collection = Collection.make([1, 2, 3]);
+    t.is(0, collection.chunk(-3).count());
+});
+
+test('.chunk() gives a collection of collections', t => {
+    let collection = Collection.make([1, 2, 3, 4, 5, 6, 7, 8]);
+
+    let chunks = collection.chunk(3);
+
+    t.deepEqual([1, 2, 3], chunks.get(0).toArray());
+    t.deepEqual([4, 5, 6], chunks.get(1).toArray());
+    t.deepEqual([7, 8], chunks.get(2).toArray());
+});
+
+test('.chunk() gives a collection given an object', t => {
+    let collection = Collection.make({'1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8});
+
+    let chunks = collection.chunk(3);
+
+    t.deepEqual([1, 2, 3], chunks.get(0).toArray());
+    t.deepEqual([4, 5, 6], chunks.get(1).toArray());
+    t.deepEqual([7, 8], chunks.get(2).toArray());
+});
+
 test('.count() it can get the count of all items', t => {
     t.is(3, Collection.make([1, 2, 3]).count());
     t.is(2, Collection.make({'foo': 'bar', 'biz': 'baz'}).count());

@@ -34,6 +34,28 @@ class Collection {
     }
 
     /**
+     * @param size
+     * @returns {Collection}
+     */
+    chunk(size) {
+        if (size <= 0) {
+            return Collection.make();
+        }
+
+        let currentChunk = 0;
+        return this.reduce((chunks, value) => {
+            chunks = chunks.put(currentChunk, chunks.get(currentChunk).push(value));
+
+            if (chunks.get(currentChunk).count() == size) {
+                currentChunk++;
+                chunks = chunks.put(currentChunk, Collection.make());
+            }
+
+            return chunks;
+        }, Collection.make([Collection.make()]));
+    }
+
+    /**
      * @returns {Number}
      */
     count() {
