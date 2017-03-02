@@ -27,7 +27,7 @@ class Collection {
      * @returns {number}
      */
     avg(callback = null) {
-        let count = this.count();
+        const count = this.count();
         if (count) {
             return this.sum(callback) / count;
         }
@@ -67,10 +67,8 @@ class Collection {
      * @returns {Collection}
      */
     each(callable) {
-        let keys = Object.keys(this.items);
-
-        for (let i = 0, len = keys.length; i < len; i++) {
-            if (callable(this.items[keys[i]], keys[i]) === false) {
+        for (const [key, value] of this._entries()) {
+            if (callable(value, key) === false) {
                 break;
             }
         }
@@ -83,21 +81,19 @@ class Collection {
      * @returns {Collection}
      */
     filter(callback = null) {
-        let keys = this.keys();
-
-        let newCollection = Collection.make();
+        let newItems = {};
 
         if (callback === null) {
             callback = (item) => !!item;
         }
 
-        for (let i = 0, len = keys.length; i < len; i++) {
-            if (callback(this.items[keys[i]], keys[i]) == true) {
-                newCollection = newCollection.put(keys[i], this.items[keys[i]]);
+        for (const [key, value] of this._entries()) {
+            if (callback(value, key) == true) {
+                newItems[key] = value;
             }
         }
 
-        return newCollection;
+        return Collection.make(newItems);
     }
 
     /**
@@ -114,11 +110,9 @@ class Collection {
             return this.items[this.keys()[0]];
         }
 
-        let keys = this.keys();
-
-        for (let i = 0, len = keys.length; i < len; i++) {
-            if (callback(this.items[keys[i]], keys[i])) {
-                return this.items[keys[i]];
+        for (const [key, value] of this._entries()) {
+            if (callback(value, key)) {
+                return value;
             }
         }
 
@@ -166,15 +160,11 @@ class Collection {
      * @returns {*}
      */
     reduce(callback, initial = null) {
-        let keys = this.keys();
-
-        let carry = initial;
-
-        for (let i = 0, len = keys.length; i < len; i++) {
-            carry = callback(carry, this.items[keys[i]], keys[i]);
+        for (const [key, value] of this._entries()) {
+            initial = callback(initial, value, key);
         }
 
-        return carry;
+        return initial;
     }
 
     /**
@@ -182,17 +172,15 @@ class Collection {
      * @returns {Collection}
      */
     reject(callback = null) {
-        let keys = this.keys();
-
         let newCollection = Collection.make();
 
         if (callback === null) {
             callback = (item) => !!item;
         }
 
-        for (let i = 0, len = keys.length; i < len; i++) {
-            if (!callback(this.items[keys[i]], keys[i])) {
-                newCollection = newCollection.put(keys[i], this.items[keys[i]]);
+        for (const [key, value] of this._entries()) {
+            if (!callback(value, key)) {
+                newCollection = newCollection.put(key, value);
             }
         }
 
@@ -204,16 +192,13 @@ class Collection {
      * @returns {Collection}
      */
     map(callback) {
-        let keys = Object.keys(this.items);
+        let newItems = {};
 
-        let values = Object.entries(this.items).map((value) => callback(value[1], value[0]));
-
-        let items = {};
-        for (let i = 0, len = keys.length; i < len; i++) {
-            items[keys[i]] = values[i];
+        for (const [key, value] of this._entries()) {
+            newItems[key] = callback(value, key);
         }
 
-        return new Collection(items);
+        return new Collection(newItems);
     }
 
     /**
@@ -258,6 +243,14 @@ class Collection {
      */
     toArray() {
         return Object.values(this.items);
+    }
+
+    /**
+     * @return {Iterator.<*>}
+     * @private
+     */
+    _entries() {
+        return Object.entries(this.items);
     }
 
     /**
